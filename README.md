@@ -4,6 +4,7 @@
 
 ##### 基本使用nodejs-websocket的服务器
 - 进入目录"基本服务器"
+- 对应前端测试为"1.html"
 ```
     npm i
     node app.js
