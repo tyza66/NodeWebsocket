@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tyza66 websocket测试</title>
+</head>
+
+<body>
+    <script>
+        var ws = new WebSocket('ws://localhost:3000')
+        ws.addEventListener('open', () => { console.log('连接成功了') })
+        var interval = 1000;
+        var send = function (ws, message, callback) {
+            waitForConnection(ws, function () {
+                ws.send(message);
+                if (typeof callback !== 'undefined') {
+                    callback();
+                }
+            }, interval)
+        }
+        var waitForConnection = function (ws, callback, interval) {
+            if (ws.readyState === 1) {
+                callback()
+            } else {
+
+                setTimeout(function () {
+                    waitForConnection(ws, callback, interval)
+                }, interval)
+            }
+        }
+        send(ws, 'tyza66', function () {
+            console.log("发送回调");
+        })
+        ws.addEventListener('message',(e)=>{
+            console.log(e.data)
+        })
+        ws.addEventListener('close',()=>{
+            console.log('服务断开连接')
+        })
+    </script>
+</body>
+
+</html>
