@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tyza66 websocket测试</title>
+    <script src="socket.io.js"></script>
+</head>
+
+<body>
+    <script>
+        var connectionOptions =  {
+            "force new connection" : true,
+            "reconnectionAttempts": "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
+            "timeout" : 10000, //before connect_error and connect_timeout are emitted.
+            "transports" : ["websocket"]
+        };
+        var ws = io('http://localhost:3000',connectionOptions)
+        ws.emit('giao',"hello")
+        ws.on('giaogiao',(b)=>{
+            console.log(b)
+        })
+    </script>
+</body>
+
+</html>
